@@ -16,3 +16,18 @@ pub fn search(
     
     x
 }
+
+pub fn search_with_n(
+    range: Range<f64>, init: f64, n: usize,
+    der: impl Fn(f64) -> f64, der2: impl Fn(f64) -> f64) -> f64 {
+    
+    assert!((range.start..=range.end).contains(&init));
+    assert!(n > 0);
+    
+    let mut x = init;
+    for _ in 0..n {
+        x -= der(x) / der2(x);
+    }
+    
+    x
+}
